@@ -8,7 +8,6 @@
 $dir = '/projects';
 $blocks = [];
 foreach(new DirectoryIterator($dir) as $item) {
-    echo $item->getPathName() . "\n";
     if ($item->isDir() && !$item->isDot()) {
         if (null !== $block = createBlock($item->getPathname())) {
             $blocks[$item->getFilename()] = $block;
@@ -17,7 +16,7 @@ foreach(new DirectoryIterator($dir) as $item) {
     }
 }
 
-$template = file_get_contents(__DIR__ . '/nginx-settings.conf');
+$template = file_get_contents(__DIR__ . '/config/nginx-project-template.conf');
 foreach (array_filter($blocks) as $block) {
     echo strtr($template, $block);
 };
@@ -32,7 +31,7 @@ function createBlock($dir)
     if (null !== $root = getWebRoot($dir)) {
         return [
             "{root}" => $root,
-            "{entry}" => "$root/index.php",
+            "{entry}" => "/index.php",
             "{index}" => "index.php",
             "{project}" => basename($dir)
         ];
@@ -45,30 +44,36 @@ function createBlock($dir)
  * @param $dir
  */
 function getWebRoot($dir) {
+    file_put_contents('php://stderr', "Searching root for $dir\n");
     // Check for manifest.
     if (file_exists($dir . '/manifest.json')) {
-        return json_decode(file_get_contents($dir . '/manifest.json'), true)['root'];
+        $config = json_decode(file_get_contents($dir . '/manifest.json'), true);
+        return is_array($config) && isset($config['root']) ? $config['root'] : null;
     } elseif (file_exists($dir .'/index.php')) {
         return $dir;
+    } elseif (file_exists($dir .'/application/index.php')) {
+        // Quick check for yii1.
+        return $dir .'/application';
+    } elseif (file_exists($dir .'/public/index.php')) {
+        // Quick check for public/index.php; often used.
+        return $dir .'/public';
     } else {
         // Try finding a file named index.php.
         $paths = [];
         $iterator = new RecursiveCallbackFilterIterator(new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS), function(SplFileInfo $current, $key, $iterator) {
-            if ($current->getExtension() != 'php') {
-                return false;
+            if ($current->isDir() || ($current->getExtension() == 'php')) {
+                return true;
             }
-            return true;
+            return false;
         });
 
         /** @var SplFileInfo $item */
         foreach(new RecursiveIteratorIterator($iterator) as $item) {
-            echo $item->getFilename() . "\n";
             // File must be named index.php and msut not contain vendor or tmp.
             if ($item->getFilename() == 'index.php'
             && strpos($item->getPathname(), 'vendor') === false
             && strpos($item->getPathname(), 'tmp') === false
             ) {
-//                echo ".";
                 $paths[] = $item->getPathName();
             }
         }
@@ -87,6 +92,9 @@ function getWebRoot($dir) {
 
             return strpos($b, 'public') === false ? -1 : 1;
         });
+        if (!isset($paths[0])) {
+            file_put_contents('php://stderr', "No root found for $dir\n");
+        }
         return isset($paths[0]) ? dirname($paths[0]) : null;
     }
 
