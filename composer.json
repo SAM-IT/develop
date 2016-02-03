@@ -15,7 +15,7 @@
         "symfony/console": "^3.0"
 
     },
-  "bin": ["bin/vendor"],
+  "bin": ["bin/develop"],
   "repositories": {
     "phpmyadmin": {
       "type": "composer",
