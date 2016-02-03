@@ -11,10 +11,11 @@
     "require": {
       "slim/slim": "^3.1",
       "potsky/pimp-my-log": "^1.7",
-      "phpmyadmin/phpmyadmin": "^4.5"
+      "phpmyadmin/phpmyadmin": "^4.5",
+        "symfony/console": "^3.0"
 
     },
-
+  "bin": ["bin/vendor"],
   "repositories": {
     "phpmyadmin": {
       "type": "composer",

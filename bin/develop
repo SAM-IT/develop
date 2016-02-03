@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console as Console;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$app = new Console\Application('SAM-IT Development Tool', '0.1');
+$app->run();
