@@ -2,7 +2,7 @@
 
 export DEBIAN_FRONTEND=noninteractive
 echo "Updating apt-cache";
-sudo add-apt-repository -y ppa:brightbox/ruby-ng
+#sudo add-apt-repository -y ppa:brightbox/ruby-ng
 sudo apt-get -qq update
 echo "Installing packages...";
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password secret'
@@ -16,7 +16,7 @@ if ! type "composer" > /dev/null; then
   curl -sS https://getcomposer.org/installer | php
   sudo mv composer.phar /usr/local/bin/composer
 else
-  sudo composer self-update
+  sudo composer -n self-update
 fi
 
 #install mailcatcher.
@@ -25,10 +25,19 @@ if ! type "mailcatcher" > /dev/null; then
   sudo gem install mailcatcher
 fi
 
-#install phpmyadmin.
-composer global config repositories.phpmyadmin composer https://www.phpmyadmin.net/packages.json
-composer global require phpmyadmin/phpmyadmin
+#install sass.
+if ! type "sass" > /dev/null; then
+  sudo gem install sass
+fi
 
+
+
+#install phpmyadmin.
+composer -n global config repositories.phpmyadmin composer https://www.phpmyadmin.net/packages.json
+composer -n global require phpmyadmin/phpmyadmin
+
+# remove nginx default site.
+sudo rm /etc/nginx/sites-enabled/default
 
 # Fix ownership of all folders in home dir.
 sudo chown -R vagrant:vagrant /home/vagrant
