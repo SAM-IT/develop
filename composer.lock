@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "31e21c78f80c3d021e75eacedbd97c33",
-    "content-hash": "4b7d1aed03287bd701668cddcbd4270e",
+    "hash": "021e14afb399c486d796d68331991ca6",
+    "content-hash": "e13a5ed0ed14092561c7fa3db45e21b2",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -223,6 +223,16 @@
             "time": "2015-05-04 20:22:00"
         },
         {
+            "name": "sam-it/posh-git-sh",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lyze/posh-git-sh.git",
+                "reference": "master"
+            },
+            "type": "library"
+        },
+        {
             "name": "slim/slim",
             "version": "3.1.0",
             "source": {
@@ -291,16 +301,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "ebcdc507829df915f4ca23067bd59ee4ef61f6c3"
+                "reference": "5a02eaadaa285e2bb727eb6bbdfb8201fcd971b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/ebcdc507829df915f4ca23067bd59ee4ef61f6c3",
-                "reference": "ebcdc507829df915f4ca23067bd59ee4ef61f6c3",
+                "url": "https://api.github.com/repos/symfony/console/zipball/5a02eaadaa285e2bb727eb6bbdfb8201fcd971b0",
+                "reference": "5a02eaadaa285e2bb727eb6bbdfb8201fcd971b0",
                 "shasum": ""
             },
             "require": {
@@ -347,7 +357,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-22 10:39:06"
+            "time": "2016-02-02 13:44:19"
         },
         {
             "name": "symfony/polyfill-mbstring",

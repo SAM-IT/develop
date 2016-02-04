@@ -12,14 +12,34 @@
       "slim/slim": "^3.1",
       "potsky/pimp-my-log": "^1.7",
       "phpmyadmin/phpmyadmin": "^4.5",
-        "symfony/console": "^3.0"
+        "symfony/console": "^3.0",
+        "sam-it/posh-git-sh": "^1.0"
 
     },
+  "autoload": {
+    "psr-4": {
+      "SamIT\\Develop\\Commands\\": ["commands/"]
+    }
+
+  },
   "bin": ["bin/develop"],
-  "repositories": {
-    "phpmyadmin": {
+  "repositories": [
+    {
       "type": "composer",
       "url": "https://www.phpmyadmin.net/packages.json"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "sam-it/posh-git-sh",
+        "version": "1.0.0",
+        "source": {
+          "url": "https://github.com/lyze/posh-git-sh.git",
+          "type": "git",
+          "reference": "master"
+        }
+      }
     }
-  }
+  ]
+
 }

@@ -7,7 +7,7 @@ sudo apt-get -qq update
 echo "Installing packages...";
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password secret'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password secret'
-sudo apt-get -y -q install nginx php5-fpm php5-cli mysql-server git ruby-sqlite3 php5-mysqlnd
+sudo apt-get -y -q install nginx php5-fpm php5-cli mysql-server git ruby-sqlite3 php5-mysqlnd git-extras nfs-common
 sudo apt-get -y -q dist-upgrade
 
 #install composer
@@ -30,12 +30,6 @@ if ! type "sass" > /dev/null; then
   sudo gem install sass
 fi
 
-
-
-#install phpmyadmin.
-composer -n global config repositories.phpmyadmin composer https://www.phpmyadmin.net/packages.json
-composer -n global require phpmyadmin/phpmyadmin
-
 # remove nginx default site.
 sudo rm /etc/nginx/sites-enabled/default
 
@@ -45,16 +39,21 @@ sudo chown -R vagrant:vagrant /home/vagrant
 
 # Symlink configuration files.
 php /develop/nginx-configure.php > /tmp/projects.conf
-sudo ln -s /tmp/projects.conf /etc/nginx/conf.d/projects.conf
+if [ ! -f /etc/nginx/conf.d/projects.conf ]; then
+  sudo ln -s /tmp/projects.conf /etc/nginx/conf.d/projects.conf
+fi
 
-sudo rm /etc/nginx/sites-enabled/console.conf
-sudo ln -s /develop/config/nginx-console.conf /etc/nginx/sites-enabled/console.conf
+if [ ! -f /etc/nginx/sites-enabled/console.conf ]; then
+  sudo ln -s /develop/config/nginx-console.conf /etc/nginx/sites-enabled/console.conf
+fi
 
-sudo rm /etc/php5/fpm/pool.d/develop-pool.conf
-sudo ln -s /develop/config/develop-pool.conf /etc/php5/fpm/pool.d/develop-pool.conf
+if [ ! -f /etc/php5/fpm/pool.d/develop-pool.conf ]; then
+  sudo ln -s /develop/config/develop-pool.conf /etc/php5/fpm/pool.d/develop-pool.conf
+fi
 
-rm /develop/vendor/phpmyadmin/phpmyadmin/config.inc.php
-ln -s /develop/config/phpmyadmin.php /develop/vendor/phpmyadmin/phpmyadmin/config.inc.php
+if [ ! -f /develop/vendor/phpmyadmin/phpmyadmin/config.inc.php ]; then
+  ln -s /develop/config/phpmyadmin.php /develop/vendor/phpmyadmin/phpmyadmin/config.inc.php
+fi
 
 
 # Reload php and nginx.
@@ -64,12 +63,20 @@ sudo systemctl reload nginx
 sudo systemctl status nginx
 
 # Allow reading logs
-sudo touch /var/log/fpm-php.develop.log
-sudo chown vagrant:vagrant /var/log/fpm-php.develop.log
-sudo chmod o+x /var/log/nginx
+if [ ! -f /var/log/fpm-php.develop.log ]; then
+  sudo touch /var/log/fpm-php.develop.log
+  sudo chown vagrant:vagrant /var/log/fpm-php.develop.log
+  sudo chmod o+x /var/log/nginx
+fi
 
 ping -c 1 -w 5 192.168.37.1
 
 # Launch mailcatcher.
 sudo pkill -kill mailcatcher
 sudo mailcatcher --no-quit --smtp-port 25
+
+# Set vim as editor.
+sudo update-alternatives --set editor /usr/bin/vim.basic
+
+# Add bashrc.
+grep -q -F '. /develop/config/bashrc' ~/.bashrc || echo '. "/develop/config/bashrc"' >> ~/.bashrc

@@ -70,7 +70,13 @@ Vagrant.configure(2) do |config|
   # SHELL
   config.vm.provision "shell", path: "provision.sh", run: "always"
 
-  config.vm.synced_folder "/mnt/data/projects", "/projects"
+  config.vm.synced_folder "/mnt/data/projects", "/projects", type: "nfs"
+
+  #config.vm.synced_folder "/mnt/data/projects", "/nfs-projects", type: "nfs"
+  config.vm.provision "file", source: "~/.gitconfig", destination: "~/.gitconfig", run: "always"
   config.vm.synced_folder ".", "/develop"
 
+
+
+  config.ssh.forward_agent = "true"
 end
