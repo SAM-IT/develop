@@ -7,7 +7,7 @@ sudo apt-get -qq update
 echo "Installing packages...";
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password secret'
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password secret'
-sudo apt-get -y -q install nginx php5-fpm php5-cli mysql-server git ruby-sqlite3 php5-mysqlnd git-extras nfs-common poppler-utils phantomjs php5-imagick php5-curl
+sudo apt-get -y -q install nginx php5-fpm php5-cli mysql-server git ruby-sqlite3 php5-mysqlnd git-extras nfs-common poppler-utils phantomjs php5-imagick php5-curl beanstalkd php5-memcached
 sudo apt-get -y -q dist-upgrade
 
 #install composer

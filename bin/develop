@@ -19,4 +19,5 @@ foreach(scandir(__DIR__ . '/../commands') as $command) {
         $app->add(new $class(strtolower($parts[0])));
     }
 }
+chdir(__DIR__);
 $app->run();
