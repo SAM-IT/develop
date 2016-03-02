@@ -11,8 +11,9 @@
     "require": {
       "slim/slim": "^3.1",
       "potsky/pimp-my-log": "^1.7",
-      "phpmyadmin/phpmyadmin": "^4.5",
-      "symfony/console": "^3.0"
+      "symfony/console": "^3.0",
+      "knplabs/github-api": "^1.5",
+      "ptrofimov/beanstalk_console": "^1.7"
     },
   "autoload": {
     "psr-4": {
@@ -20,12 +21,6 @@
     }
 
   },
-  "bin": ["bin/develop"],
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://www.phpmyadmin.net/packages.json"
-    }
-  ]
+  "bin": ["bin/develop"]
 
 }

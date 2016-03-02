@@ -3,7 +3,8 @@
 $links = [
     'MailCatcher' => "http://" . strtr($_SERVER['HTTP_HOST'], ['console' => 'mailcatcher']),
     'Logs' => "/pimp-my-log",
-    'PHPMyAdmin' => "/phpmyadmin"
+    'PHPMyAdmin' => "/phpmyadmin",
+    'Beanstalk console' => "/beanstalk_console/public/?server=beanstalk://localhost:11300"
 ];
 ?>
 <html>
