@@ -1,13 +1,7 @@
 #!/bin/bash
 
 export DEBIAN_FRONTEND=noninteractive
-echo "Updating apt-cache";
-sudo apt-get -qq update
-echo "Installing packages...";
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password secret'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password secret'
-sudo apt-get -y -q install nginx php5-fpm php5-cli mysql-server git ruby-sqlite3 php5-mysqlnd git-extras nfs-common poppler-utils phantomjs php5-imagick php5-curl beanstalkd php5-memcached
-sudo apt-get -y -q dist-upgrade
+/develop/bin/develop prepare
 
 #install composer
 if ! type "composer" > /dev/null; then

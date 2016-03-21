@@ -1,1 +1,5 @@
 /vendor/
+gitkeep/
+runtime
+.vagrant
+.idea

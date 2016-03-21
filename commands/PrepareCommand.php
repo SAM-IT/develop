@@ -11,10 +11,43 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PrepareCommand extends Command
 {
+    protected $packages = [
+        'nginx',
+        'php5-fpm',
+        'php5-cli',
+        'mysql-server',
+        'git',
+        'ruby-sqlite3',
+        'php5-mysqlnd',
+        'git-extras',
+        'nfs-common',
+        'poppler-utils',
+        'phantomjs',
+        'php5-imagick',
+        'php5-curl',
+        'beanstalkd',
+        'php5-memcached'
+    ];
+
+    protected function installAptPackages()
+    {
+        $parts = [
+            'export DEBIAN_FRONTEND=noninteractive',
+            'sudo apt-get -qq update',
+            "echo 'mysql-server mysql-server/root_password password secret' | sudo debconf-set-selections",
+            "echo 'mysql-server mysql-server/root_password_again password secret' | sudo debconf-set-selections",
+            "sudo apt-get -y -q install " . implode(' ', $this->packages),
+            "sudo apt-get -y -q dist-upgrade"
+        ];
+
+        passthru(implode('; ', $parts));
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-//        $this->installPhpMyAdmin($input, $output);
+        $this->installPhpMyAdmin($input, $output);
         $this->installPoshGit($input, $output);
+        $this->installAptPackages($input, $output);
     }
 
     protected function installPhpMyAdmin(InputInterface $in, OutputInterface $out)
