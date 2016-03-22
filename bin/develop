@@ -16,8 +16,6 @@ if (file_exists($dir . '/vendor/autoload.php')) {
     die("Could not find autoload.php");
 }
 
-require_once "$dir/vendor/autoload.php";
-
 $app = new Console\Application('SAM-IT Development Tool', '0.1');
 // Add all commands.
 foreach(scandir(__DIR__ . '/../commands') as $command) {

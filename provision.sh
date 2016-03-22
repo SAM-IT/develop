@@ -24,6 +24,7 @@ if ! type "sass" > /dev/null; then
 fi
 
 # remove nginx default site.
+if [ -f //etc/nginx/sites-enabled/default ]; then
 sudo rm /etc/nginx/sites-enabled/default
 
 # Fix ownership of all folders in home dir.
