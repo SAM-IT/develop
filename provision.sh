@@ -12,9 +12,6 @@ else
   sudo composer -n self-update
 fi
 
-# install fxp/composer-asset-plugin
-composer global require fxp/composer-asset-plugin
-
 #install mailcatcher.
 if ! type "mailcatcher" > /dev/null; then
   sudo gem install activesupport

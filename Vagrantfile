@@ -68,6 +68,7 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
+  config.vm.provision "shell", path: "bin/develop prepare", run: "always"
   config.vm.provision "shell", path: "provision.sh", run: "always"
 
   config.vm.synced_folder "/mnt/data/projects", "/projects"

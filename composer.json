@@ -13,7 +13,8 @@
       "potsky/pimp-my-log": "^1.7",
       "symfony/console": "^3.0",
       "knplabs/github-api": "^1.5",
-      "ptrofimov/beanstalk_console": "^1.7"
+      "ptrofimov/beanstalk_console": "^1.7",
+      "fxp/composer-asset-plugin": "^1.1"
     },
   "autoload": {
     "psr-4": {
