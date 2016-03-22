@@ -4,8 +4,10 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require __DIR__ . '/vendor/autoload.php';
+} elseif (file_exists('/home/vagrant/.composer/vendor/autoload.php')) {
+    require '/home/vagrant/.composer/vendor/autoload.php';
 } else {
-    require '~/.composer/vendor/autoload.php';
+    die("Could not find autoload.php");
 }
 
 
