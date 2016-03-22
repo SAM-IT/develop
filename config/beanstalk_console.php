@@ -19,5 +19,3 @@ $GLOBALS['config'] = array(
      */
     'version' => '1.7.4',
 );
-/** @var \Composer\Autoload\ClassLoader $auto */
-$auto = require_once '/projects/marketflow/protected/vendor/autoload.php';
