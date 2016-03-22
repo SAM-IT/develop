@@ -1,7 +1,7 @@
 {
     "name": "sam-it/develop",
     "description": "Homestead alternative",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Sam Mousa",
