@@ -71,6 +71,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", path: "provision.sh", run: "always"
 
   config.vm.synced_folder "/mnt/data/projects", "/projects"
+  config.vm.synced_folder "~/.composer", "~/.composer"
 #, type: "nfs"
 
   #config.vm.synced_folder "/mnt/data/projects", "/nfs-projects", type: "nfs"
