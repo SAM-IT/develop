@@ -2,7 +2,14 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'vendor/autoload.php';
+$dir = __DIR__;
+while (!file_exists($dir . '/vendor/autoload.php') && $dir != dirname($dir)) {
+    $dir = dirname($dir);
+}
+if (!file_exists($dir . '/vendor/autoload.php')) {
+    die("Could not find autoload.php");
+}
+require $dir . '/vendor/autoload.php';
 
 $app = new \Slim\App;
 $app->get('/', function (Request $request, Response $response) {
