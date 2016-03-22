@@ -26,6 +26,7 @@ fi
 # remove nginx default site.
 if [ -f //etc/nginx/sites-enabled/default ]; then
 sudo rm /etc/nginx/sites-enabled/default
+fi
 
 # Fix ownership of all folders in home dir.
 sudo chown -R vagrant:vagrant /home/vagrant
@@ -69,4 +70,3 @@ sudo update-alternatives --set editor /usr/bin/vim.basic
 
 # Add bashrc.
 grep -q -F '. /develop/config/bashrc' ~/.bashrc || echo '. "/develop/config/bashrc"' >> ~/.bashrc
-
