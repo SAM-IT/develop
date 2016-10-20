@@ -3,6 +3,8 @@
 export DEBIAN_FRONTEND=noninteractive
 /develop/bin/develop prepare
 
+sudo apt-get update && sudo apt-get install -y php-cli
+
 #install composer
 if ! type "composer" > /dev/null; then
   echo "Installing composer.";

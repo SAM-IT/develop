@@ -13,20 +13,22 @@ class PrepareCommand extends Command
 {
     protected $packages = [
         'nginx',
-        'php5-fpm',
-        'php5-cli',
         'mysql-server',
         'git',
         'ruby-sqlite3',
-        'php5-mysqlnd',
         'git-extras',
         'nfs-common',
         'poppler-utils',
-        'phantomjs',
-        'php5-imagick',
-        'php5-curl',
         'beanstalkd',
-        'php5-memcached'
+        'autossh',
+        'php-fpm',
+        'php-cli',
+        'php-memcached',
+        'php-gd',
+        'php-intl',
+        'php-imagick',
+        'php-curl',
+        'php-mysqlnd'
     ];
 
     protected function installAptPackages()

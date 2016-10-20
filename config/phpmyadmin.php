@@ -14,8 +14,9 @@
  * This is needed for cookie based authentication to encrypt password in
  * cookie
  */
-$cfg['blowfish_secret'] = ''; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+$cfg['blowfish_secret'] = 'test'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 $cfg['AllowThirdPartyFraming'] = true;
+//$cfg['AllowArbitraryServer'] = true;
 /**
  * Servers configuration
  */
@@ -31,6 +32,8 @@ $cfg['Servers'][$i]['auth_type'] = 'config';
 $cfg['Servers'][$i]['host'] = 'localhost';
 $cfg['Servers'][$i]['user'] = 'root';
 $cfg['Servers'][$i]['password'] = 'secret';
+$cfg['Servers'][$i]['verbose'] = 'Local, no password needed';
+
 
 $cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
@@ -158,3 +161,6 @@ $cfg['SaveDir'] = '';
  * You can find more configuration options in the documentation
  * in the doc/ folder or at <http://docs.phpmyadmin.net/>.
  */
+if (file_exists(__DIR__ . '/phpmyadmin.user.php')) {
+    include __DIR__ . '/phpmyadmin.user.php';
+}

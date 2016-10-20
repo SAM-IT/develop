@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/wily64"
+  config.vm.box = "ubuntu/xenial64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -49,6 +49,9 @@ Vagrant.configure(2) do |config|
 
     # Customize the amount of memory on the VM:
     vb.memory = "2048"
+
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
   #
   # View the documentation for the provider you are using for more
@@ -80,4 +83,5 @@ Vagrant.configure(2) do |config|
 
 
   config.ssh.forward_agent = "true"
+  config.ssh.forward_x11 = "true"
 end
